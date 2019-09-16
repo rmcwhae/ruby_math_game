@@ -18,7 +18,6 @@ class Game
     @player_one = Player.new(1)
     @player_two = Player.new(2)
     @current_player = @player_one
-    # puts Turn.new(@current_player)
   end
 
   def turn(player)
@@ -36,7 +35,26 @@ class Game
   end
 
   def play()
-    turn(@player_one)
+    while @player_one.lives > 0 || @player_two.lives > 0
+      if @player_one.lives == 0
+        puts '----- GAME OVER -----'
+        puts "Player 2 wins with a score of #{@player_two.lives}/3"
+        exit
+      elsif @player_two.lives == 0
+        puts '----- GAME OVER -----'
+        puts "Player 1 wins with a score of #{@player_one.lives}/3"
+        exit
+      end
+      if @current_player == @player_one
+        puts '----- NEW TURN -----'
+      turn(@player_one)
+      @current_player = @player_two
+      elsif @current_player == @player_two
+        puts '----- NEW TURN -----'
+      turn(@player_two)
+      @current_player = @player_one
+      end
+    end
   end
 
 end
@@ -44,4 +62,3 @@ end
 
 new_game = Game.new
 new_game.play
-# puts new_game.turn(2)
