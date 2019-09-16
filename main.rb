@@ -9,10 +9,6 @@ class Player
   end
 end
 
-# class Turn
-
-# end
-
 class Game
   def initialize
     @player_one = Player.new(1)
@@ -34,15 +30,18 @@ class Game
     puts "P1: #{@player_one.lives}/3 vs P2: #{@player_two.lives}/3"
   end
 
+  def end_game(player)
+    puts '----- GAME OVER -----'
+    puts "Player #{player.id} wins with a score of #{player.lives}/3"
+  end
+
   def play()
     while @player_one.lives > 0 || @player_two.lives > 0
       if @player_one.lives == 0
-        puts '----- GAME OVER -----'
-        puts "Player 2 wins with a score of #{@player_two.lives}/3"
+        end_game(@player_two)
         exit
       elsif @player_two.lives == 0
-        puts '----- GAME OVER -----'
-        puts "Player 1 wins with a score of #{@player_one.lives}/3"
+        end_game(@player_one)
         exit
       end
       if @current_player == @player_one
