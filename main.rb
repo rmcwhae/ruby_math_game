@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Player
   attr_accessor :lives
   attr_reader :id
@@ -8,16 +10,25 @@ class Player
 end
 
 class Turn
-
-  def initialize(id)
-    @my_turn = id
-    puts "Player #{id}: What does stuff mean?"
+  def initialize(player_id)
+    x = rand(20)
+    y = rand(20)
+    puts "Player #{player_id}: What does #{x} plus #{y} equal?"
+    answer = gets.chomp.to_i
+    puts answer.inspect
+    if answer == (x + y)
+      puts "Player #{player_id}: YES! You are correct."
+    elsif answer != x + y
+      puts "Player #{player_id}: Seriously? No!"
+      # REDUCE LIVES HERES
+    end
   end
-
 end
 
 class Game
-
+  def initialize
+    puts Turn.new(1)
+  end
 end
 
 player_one = Player.new(1)
