@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Player
   attr_accessor :lives
   attr_reader :id
@@ -19,6 +17,7 @@ class Game
   def turn(player)
     x = rand(20)
     y = rand(20)
+    puts '----- NEW TURN -----'
     puts "Player #{player.id}: What does #{x} plus #{y} equal?"
     answer = gets.chomp.to_i
     if answer == (x + y)
@@ -35,7 +34,7 @@ class Game
     puts "Player #{player.id} wins with a score of #{player.lives}/3"
   end
 
-  def play()
+  def play
     while @player_one.lives > 0 || @player_two.lives > 0
       if @player_one.lives == 0
         end_game(@player_two)
@@ -45,19 +44,16 @@ class Game
         exit
       end
       if @current_player == @player_one
-        puts '----- NEW TURN -----'
-      turn(@player_one)
-      @current_player = @player_two
+        turn(@player_one)
+        @current_player = @player_two
       elsif @current_player == @player_two
-        puts '----- NEW TURN -----'
-      turn(@player_two)
-      @current_player = @player_one
+        turn(@player_two)
+        @current_player = @player_one
       end
     end
   end
-
 end
 
-
+# Action time!
 new_game = Game.new
 new_game.play
