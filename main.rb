@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './player'
 
 locale = :en
@@ -9,7 +11,7 @@ ALL_LANGUAGES = {
   fr: {
     new_turn: '----- NOUVEAU TOUR -----'
   }
-}
+}.freeze
 
 MESSAGES = ALL_LANGUAGES[locale]
 
@@ -29,13 +31,19 @@ class Game
   def turn(player)
     x = rand(20)
     y = rand(20)
-    Display.say MESSAGES[:new_turn]
+    right_msgs = ['Nailed it!',
+                  'Mmmmmm hmmmmmmmm.',
+                  'YES! You are correct.']
+    wrong_msgs = ['Seriously? No!',
+                  'Are you for real? Do you even math, bro?',
+                  'Terrible.']
+    Display.say MESSAGES[:new_turn] # borrowed from Hafiz: https://gist.github.com/hafbau/11a84e3c7b725e21b873953364ea8ee0
     puts "Player #{player.id}: What does #{x} plus #{y} equal?"
     answer = gets.chomp.to_i
     if answer == (x + y)
-      puts "Player #{player.id}: YES! You are correct."
+      puts "Player #{player.id}: #{right_msgs.sample}"
     elsif answer != x + y
-      puts "Player #{player.id}: Seriously? No!"
+      puts "Player #{player.id}: #{wrong_msgs.sample}"
       player.lives -= 1
     end
     puts "P1: #{@player_one.lives}/3 vs P2: #{@player_two.lives}/3"
